@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
   Avatar,
+  Button,
   Box,
   Card,
   Checkbox,
@@ -119,8 +120,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   
 
                   <TableCell>
-                    {/* {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`} */}
-                    넘버자리
+                    {customer.no}
                   </TableCell>
 
                   <TableCell>
@@ -168,17 +168,16 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        STAY
+                        {customer.auth}
                         
                       </Typography>
-                      
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
+    
+                      <Button
+                        color="primary"
+                        variant="contained"
                       >
-                        {getInitials(customer.name)}
-                      </Avatar>
-
+                        승인
+                      </Button> 
                     </Box>  
                   </TableCell>
                   
