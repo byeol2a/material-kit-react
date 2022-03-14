@@ -161,23 +161,17 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     <Box
                       sx={{
                         alignItems: 'center',
-                        display: 'flex'
-                      }}
+                        display: 'flex',
+                        flexDirection: 'row'
+                        }}
                     >
                       <Typography
                         color="textPrimary"
                         variant="body1"
+                        sx={{ ml: 1 }}
                       >
                         {customer.auth}
-                        
                       </Typography>
-    
-                      <Button
-                        color="primary"
-                        variant="contained"
-                      >
-                        승인
-                      </Button> 
                     </Box>  
                   </TableCell>
                   

@@ -2,14 +2,16 @@ import {
   Box,
   Button,
   Card,
+  Grid,
   CardContent,
   TextField,
   InputAdornment,
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
-import { Download as DownloadIcon } from '../../icons/download';
+import { UserAdd as AddIcon } from '../../icons/user-add';
+import { User as UserIcon } from '../../icons/user';
+import { XCircle as XIcon } from '../../icons/x-circle';
 
 
 export const CustomerListToolbar = (props) => (
@@ -24,20 +26,26 @@ export const CustomerListToolbar = (props) => (
       }}
     >
       <Typography
-        sx={{ m: 1 }}
+        sx={{ m: 3 }}
         variant="h4"
       >
         회원정보 검색
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
+          startIcon={(<AddIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
           등록하기
         </Button>
         <Button
-          startIcon={(<DownloadIcon fontSize="small" />)}
+          startIcon={(<UserIcon fontSize="small" />)}
+          sx={{ mr: 1 }}
+        >
+          세부정보
+        </Button>
+        <Button
+          startIcon={(<XIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
           삭제하기
@@ -46,14 +54,21 @@ export const CustomerListToolbar = (props) => (
           color="primary"
           variant="contained"
         >
-          전체 승인
+          선택 승인
         </Button>
       </Box>
     </Box>
-    <Box sx={{ mt: 3 }}>
+    <Box sx={{ ml: 1 }}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 400 }}>
+        <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          p: 1,
+          m: 1
+          }}
+        >
             <TextField
               fullWidth
               InputProps={{
@@ -71,14 +86,11 @@ export const CustomerListToolbar = (props) => (
               placeholder="Search customer"
               variant="outlined"
             />
-            <Button
-            color="primary"
-            variant="contained"
-            >
-            Search
-            </Button> 
+            <Button variant="contained" sx={{ ml: 1 }} >Search</Button>
           </Box>
+
         </CardContent>
+ 
       </Card> 
     </Box>
   </Box>
