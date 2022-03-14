@@ -11,6 +11,7 @@ import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
+
 export const CustomerListToolbar = (props) => (
   <Box {...props}>
     <Box
@@ -26,33 +27,33 @@ export const CustomerListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Customers
+        회원정보 검색
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
-          Import
+          등록하기
         </Button>
         <Button
           startIcon={(<DownloadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
-          Export
+          삭제하기
         </Button>
         <Button
           color="primary"
           variant="contained"
         >
-          Add Customers
+          전체 승인
         </Button>
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
+          <Box sx={{ maxWidth: 400 }}>
             <TextField
               fullWidth
               InputProps={{
@@ -70,9 +71,15 @@ export const CustomerListToolbar = (props) => (
               placeholder="Search customer"
               variant="outlined"
             />
+            <Button
+            color="primary"
+            variant="contained"
+            >
+            Search
+            </Button> 
           </Box>
         </CardContent>
-      </Card>
+      </Card> 
     </Box>
   </Box>
 );

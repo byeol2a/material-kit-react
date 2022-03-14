@@ -61,7 +61,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -81,19 +80,25 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>
-                  Name
+                  NO
                 </TableCell>
                 <TableCell>
-                  Email
+                  Date
                 </TableCell>
                 <TableCell>
-                  Location
+                  ID
                 </TableCell>
                 <TableCell>
-                  Phone
+                  EMAIL
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  HP
+                </TableCell>
+                <TableCell>
+                  NAME
+                </TableCell>
+                <TableCell>
+                  AUTH
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -111,7 +116,26 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       value="true"
                     />
                   </TableCell>
+                  
+
                   <TableCell>
+                    {/* {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`} */}
+                    넘버자리
+                  </TableCell>
+
+                  <TableCell>
+                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                  </TableCell>
+                  <TableCell>
+                    {customer.id}
+                  </TableCell>
+                  <TableCell>
+                    {customer.email}
+                  </TableCell>
+                  <TableCell>
+                    {customer.phone}
+                  </TableCell>
+                  <TableCell >
                     <Box
                       sx={{
                         alignItems: 'center',
@@ -132,18 +156,32 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       </Typography>
                     </Box>
                   </TableCell>
+
                   <TableCell>
-                    {customer.email}
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        STAY
+                        
+                      </Typography>
+                      
+                      <Avatar
+                        src={customer.avatarUrl}
+                        sx={{ mr: 2 }}
+                      >
+                        {getInitials(customer.name)}
+                      </Avatar>
+
+                    </Box>  
                   </TableCell>
-                  <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
-                  </TableCell>
+                  
                 </TableRow>
               ))}
             </TableBody>
