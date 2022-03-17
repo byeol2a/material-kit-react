@@ -57,6 +57,8 @@ const Register = () => {
     }),
     onSubmit: () => {
       router.push('/');
+    console.log(formik.values.firstName)
+    console.log(formik.values.lastName)
     }
   });
 
