@@ -3,7 +3,7 @@ import { Box, Container } from '@mui/material';
 import { MemberListResults } from '../components/member/member-list-results';
 import { MemberListToolbar } from '../components/member/member-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
+import { members } from '../__mocks__/members';
 
 const Members = () => (
   <>
@@ -22,7 +22,7 @@ const Members = () => (
       <Container maxWidth={false}>
         <MemberListToolbar />
         <Box sx={{ mt: 3 }}>
-          <MemberListResults customers={customers} />
+          <MemberListResults members={members} />
         </Box>
       </Container>
     </Box>

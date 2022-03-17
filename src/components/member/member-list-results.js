@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const MemberListResults = ({ customers, ...rest }) => {
+export const MemberListResults = ({ members, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -27,7 +27,7 @@ export const MemberListResults = ({ customers, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCustomerIds = members.map((member) => member.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -71,11 +71,11 @@ export const MemberListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedCustomerIds.length === members.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      && selectedCustomerIds.length < members.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -84,19 +84,25 @@ export const MemberListResults = ({ customers, ...rest }) => {
                   NO
                 </TableCell>
                 <TableCell>
-                  Date
+                  WriteDate
+                </TableCell>
+                <TableCell>
+                  PERM
                 </TableCell>
                 <TableCell>
                   ID
                 </TableCell>
                 <TableCell>
+                  NAME
+                </TableCell>
+                <TableCell>
                   EMAIL
                 </TableCell>
                 <TableCell>
-                  HP
+                  INSTANCE
                 </TableCell>
                 <TableCell>
-                  NAME
+                  ACTIVE
                 </TableCell>
                 <TableCell>
                   AUTH
@@ -104,36 +110,32 @@ export const MemberListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {members.slice(0, limit).map((member) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={member.id}
+                  selected={selectedCustomerIds.indexOf(member.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedCustomerIds.indexOf(member.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, member.id)}
                       value="true"
                     />
                   </TableCell>
                   
 
                   <TableCell>
-                    {customer.no}
-                  </TableCell>
-
-                  <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {member.no}
                   </TableCell>
                   <TableCell>
-                    {customer.id}
+                    {member.writedate}
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {member.permission}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {member.id}
                   </TableCell>
                   <TableCell >
                     <Box
@@ -142,21 +144,23 @@ export const MemberListResults = ({ customers, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {member.name}
                       </Typography>
                     </Box>
                   </TableCell>
-
+                  <TableCell>
+                    {member.email}
+                  </TableCell>
+                  <TableCell>
+                    {member.instanceyn}
+                  </TableCell>
+                  <TableCell>
+                    {member.activeyn}
+                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -170,7 +174,7 @@ export const MemberListResults = ({ customers, ...rest }) => {
                         variant="body1"
                         sx={{ ml: 1 }}
                       >
-                        {customer.auth}
+                        {member.auth}
                       </Typography>
                     </Box>  
                   </TableCell>
@@ -183,7 +187,7 @@ export const MemberListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={members.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -195,5 +199,5 @@ export const MemberListResults = ({ customers, ...rest }) => {
 };
 
 MemberListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+  members: PropTypes.array.isRequired
 };
