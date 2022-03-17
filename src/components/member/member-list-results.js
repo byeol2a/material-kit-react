@@ -194,6 +194,6 @@ export const MemberListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
+MemberListResults.propTypes = {
   customers: PropTypes.array.isRequired
 };
