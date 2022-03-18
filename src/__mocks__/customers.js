@@ -2,8 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 export const customers = [
   {
-    no: '1',
-    id: 'Customer01',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'West Virginia',
@@ -14,12 +13,10 @@ export const customers = [
     createdAt: 1555016400000,
     email: 'ekaterina.tankova@devias.io',
     name: 'Ekaterina Tankova',
-    phone: '304-428-3097',
-    auth: 'OK'
+    phone: '304-428-3097'
   },
   {
-    no: '2',
-    id: 'Customer02',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Bristow',
@@ -30,12 +27,10 @@ export const customers = [
     createdAt: 1555016400000,
     email: 'cao.yu@devias.io',
     name: 'Cao Yu',
-    phone: '712-351-5711',
-    auth: 'OK'
+    phone: '712-351-5711'
   },
   {
-    no: '3',
-    id: 'Customer03',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Georgia',
@@ -46,12 +41,10 @@ export const customers = [
     createdAt: 1555016400000,
     email: 'alexa.richardson@devias.io',
     name: 'Alexa Richardson',
-    phone: '770-635-2682',
-    auth: 'STAY'
+    phone: '770-635-2682'
   },
   {
-    no: '4',
-    id: 'Customer04',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Ohio',
@@ -62,12 +55,10 @@ export const customers = [
     createdAt: 1554930000000,
     email: 'anje.keizer@devias.io',
     name: 'Anje Keizer',
-    phone: '908-691-3242',
-    auth: 'OK'
+    phone: '908-691-3242'
   },
   {
-    no: '5',
-    id: 'Customer05',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Texas',
@@ -78,12 +69,10 @@ export const customers = [
     createdAt: 1554757200000,
     email: 'clarke.gillebert@devias.io',
     name: 'Clarke Gillebert',
-    phone: '972-333-4106',
-    auth: 'STAY'
+    phone: '972-333-4106'
   },
   {
-    no: '6',
-    id: 'Customer06',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'California',
@@ -94,12 +83,10 @@ export const customers = [
     createdAt: 1554670800000,
     email: 'adam.denisov@devias.io',
     name: 'Adam Denisov',
-    phone: '858-602-3409',
-    auth: 'STAY'
+    phone: '858-602-3409'
   },
   {
-    no: '7',
-    id: 'Customer07',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'California',
@@ -110,12 +97,10 @@ export const customers = [
     createdAt: 1554325200000,
     email: 'ava.gregoraci@devias.io',
     name: 'Ava Gregoraci',
-    phone: '415-907-2647',
-    auth: 'OK'
+    phone: '415-907-2647'
   },
   {
-    no: '8',
-    id: 'Customer08',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Nevada',
@@ -126,12 +111,10 @@ export const customers = [
     createdAt: 1523048400000,
     email: 'emilee.simchenko@devias.io',
     name: 'Emilee Simchenko',
-    phone: '702-661-1654',
-    auth: 'STAY'
+    phone: '702-661-1654'
   },
   {
-    no: '9',
-    id: 'Customer09',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Michigan',
@@ -142,12 +125,10 @@ export const customers = [
     createdAt: 1554702800000,
     email: 'kwak.seong.min@devias.io',
     name: 'Kwak Seong-Min',
-    phone: '313-812-8947',
-    auth: 'OK'
+    phone: '313-812-8947'
   },
   {
-    no: '10',
-    id: 'Customer10',
+    id: uuid(),
     address: {
       country: 'USA',
       state: 'Utah',
@@ -158,7 +139,6 @@ export const customers = [
     createdAt: 1522702800000,
     email: 'merrile.burgett@devias.io',
     name: 'Merrile Burgett',
-    phone: '801-301-7894',
-    auth: 'STAY'
+    phone: '801-301-7894'
   }
 ];

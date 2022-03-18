@@ -2,17 +2,14 @@ import {
   Box,
   Button,
   Card,
-  Grid,
   CardContent,
   TextField,
   InputAdornment,
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import { UserAdd as AddIcon } from '../../icons/user-add';
-import { User as UserIcon } from '../../icons/user';
-import { XCircle as XIcon } from '../../icons/x-circle';
-
+import { Upload as UploadIcon } from '../../icons/upload';
+import { Download as DownloadIcon } from '../../icons/download';
 
 export const CustomerListToolbar = (props) => (
   <Box {...props}>
@@ -26,49 +23,36 @@ export const CustomerListToolbar = (props) => (
       }}
     >
       <Typography
-        sx={{ m: 3 }}
+        sx={{ m: 1 }}
         variant="h4"
       >
-        회원정보 검색
+        Customers
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button
-          startIcon={(<AddIcon fontSize="small" />)}
+          startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
-          등록하기
+          Import
         </Button>
         <Button
-          startIcon={(<UserIcon fontSize="small" />)}
+          startIcon={(<DownloadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
-          세부정보
-        </Button>
-        <Button
-          startIcon={(<XIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          삭제하기
+          Export
         </Button>
         <Button
           color="primary"
           variant="contained"
         >
-          선택 승인
+          Add Customers
         </Button>
       </Box>
     </Box>
-    <Box sx={{ ml: 1 }}>
+    <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
-        <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          p: 1,
-          m: 1
-          }}
-        >
+          <Box sx={{ maxWidth: 500 }}>
             <TextField
               fullWidth
               InputProps={{
@@ -86,12 +70,9 @@ export const CustomerListToolbar = (props) => (
               placeholder="Search customer"
               variant="outlined"
             />
-            <Button variant="contained" sx={{ ml: 1 }} >Search</Button>
           </Box>
-
         </CardContent>
- 
-      </Card> 
+      </Card>
     </Box>
   </Box>
 );

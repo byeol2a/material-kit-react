@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
   Avatar,
-  Button,
   Box,
   Card,
   Checkbox,
@@ -62,6 +61,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -81,25 +81,19 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>
-                  NO
+                  Name
                 </TableCell>
                 <TableCell>
-                  Date
+                  Email
                 </TableCell>
                 <TableCell>
-                  ID
+                  Location
                 </TableCell>
                 <TableCell>
-                  EMAIL
+                  Phone
                 </TableCell>
                 <TableCell>
-                  HP
-                </TableCell>
-                <TableCell>
-                  NAME
-                </TableCell>
-                <TableCell>
-                  AUTH
+                  Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -117,25 +111,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       value="true"
                     />
                   </TableCell>
-                  
-
                   <TableCell>
-                    {customer.no}
-                  </TableCell>
-
-                  <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
-                  </TableCell>
-                  <TableCell>
-                    {customer.id}
-                  </TableCell>
-                  <TableCell>
-                    {customer.email}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell >
                     <Box
                       sx={{
                         alignItems: 'center',
@@ -156,25 +132,18 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       </Typography>
                     </Box>
                   </TableCell>
-
                   <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                        flexDirection: 'row'
-                        }}
-                    >
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                        sx={{ ml: 1 }}
-                      >
-                        {customer.auth}
-                      </Typography>
-                    </Box>  
+                    {customer.email}
                   </TableCell>
-                  
+                  <TableCell>
+                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                  </TableCell>
+                  <TableCell>
+                    {customer.phone}
+                  </TableCell>
+                  <TableCell>
+                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
