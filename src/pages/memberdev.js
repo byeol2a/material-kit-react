@@ -5,17 +5,19 @@ import { Box, Container } from '@mui/material';
 import { MemberListResults } from '../components/member/member-list-results';
 import { MemberListToolbar } from '../components/member/member-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { members } from '../__mocks__/members';
 
 const Memberdev = (props) => {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const apiCall = async () =>  {
       const response = await axios.get('http://localhost:8080/restapi/member'); 
-      console.log(response.data); 
+      setData(response.data.payload);
     };
     apiCall();
   }, [])
+
+  console.log(data);
   return (
     <div>
       <>
@@ -34,7 +36,7 @@ const Memberdev = (props) => {
           <Container maxWidth={false}>
             <MemberListToolbar />
             <Box sx={{ mt: 3 }}>
-              <MemberListResults members={members} />
+              <MemberListResults members={data} />
             </Box>
           </Container>
         </Box>
