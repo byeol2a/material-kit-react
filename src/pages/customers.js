@@ -28,6 +28,7 @@ const Customers = () => (
     </Box>
   </>
 );
+
 Customers.getLayout = (page) => (
   <DashboardLayout>
     {page}

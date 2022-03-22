@@ -20,41 +20,42 @@ import { getInitials } from '../../utils/get-initials';
 import axios from 'axios';
 
 export const MemberListResults = ({ members, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+  const [selectedMemberNOs, setSelectedMemberNOs] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
 
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    let newSelectedMemberNOs;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = members.map((member) => member.id);
+      newSelectedMemberNOs = members.map((member) => member.no);
+      console.log(members) //
     } else {
-      newSelectedCustomerIds = [];
+      newSelectedMemberNOs = [];
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedMemberNOs(newSelectedMemberNOs);
   };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
+  const handleSelectOne = (event, no) => {
+    const selectedIndex = selectedMemberNOs.indexOf(no);
+    let newSelectedMemberNOs = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedMemberNOs = newSelectedMemberNOs.concat(selectedMemberNOs, no);
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedMemberNOs = newSelectedMemberNOs.concat(selectedMemberNOs.slice(1));
+    } else if (selectedIndex === selectedMemberNOs.length - 1) {
+      newSelectedMemberNOs = newSelectedMemberNOs.concat(selectedMemberNOs.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
+      newSelectedMemberNOs = newSelectedMemberNOs.concat(
+        selectedMemberNOs.slice(0, selectedIndex),
+        selectedMemberNOs.slice(selectedIndex + 1)
       );
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedMemberNOs(newSelectedMemberNOs);
   };
 
   const handleLimitChange = (event) => {
@@ -64,6 +65,8 @@ export const MemberListResults = ({ members, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
+  console.log(members)
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -73,11 +76,11 @@ export const MemberListResults = ({ members, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === members.length}
+                    checked={selectedMemberNOs.length === members.length}
                     color="primary"
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < members.length
+                      selectedMemberNOs.length > 0
+                      && selectedMemberNOs.length < members.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -112,16 +115,17 @@ export const MemberListResults = ({ members, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
+              
               {members.slice(0, limit).map((member) => (
                 <TableRow
                   hover
-                  key={member.id}
-                  selected={selectedCustomerIds.indexOf(member.id) !== -1}
+                  key={member.no}
+                  selected={selectedMemberNOs.indexOf(member.no) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(member.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, member.id)}
+                      checked={selectedMemberNOs.indexOf(member.no) !== -1}
+                      onChange={(event) => handleSelectOne(event, member.no)}
                       value="true"
                     />
                   </TableCell>

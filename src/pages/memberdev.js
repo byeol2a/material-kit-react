@@ -17,7 +17,11 @@ const Memberdev = (props) => {
     apiCall();
   }, [])
 
-  console.log(data);
+  //만든 데이터를 activeyn 'Y'인 것만 걸러내기.
+  const ResultMap = data.filter((x)=> {
+    return x.activeyn == 'Y'
+  })
+  
   return (
     <div>
       <>
@@ -36,7 +40,7 @@ const Memberdev = (props) => {
           <Container maxWidth={false}>
             <MemberListToolbar />
             <Box sx={{ mt: 3 }}>
-              <MemberListResults members={data} />
+              <MemberListResults members={ResultMap} />
             </Box>
           </Container>
         </Box>
