@@ -21,7 +21,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
+  console.log(selectedCustomerIds)
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
@@ -55,7 +55,8 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   const handleLimitChange = (event) => {
-    setLimit(event.target.value);
+    setLimit(parseInt(event.target.value,10));
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
@@ -98,7 +99,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {customers.slice(page * limit, (page + 1) * limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}

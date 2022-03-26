@@ -8,7 +8,6 @@ import { DashboardLayout } from '../components/dashboard-layout';
 
 const Memberdev = (props) => {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     const apiCall = async () =>  {
       const response = await axios.get('http://localhost:8080/restapi/member'); 
@@ -16,7 +15,7 @@ const Memberdev = (props) => {
     };
     apiCall();
   }, [])
-
+  console.log()
   //만든 데이터를 activeyn 'Y'인 것만 걸러내기.
   const ResultMap = data.filter((x)=> {
     return x.activeyn == 'Y'

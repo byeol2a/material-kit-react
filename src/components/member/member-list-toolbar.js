@@ -12,10 +12,63 @@ import { Search as SearchIcon } from '../../icons/search';
 import { UserAdd as AddIcon } from '../../icons/user-add';
 import { User as UserIcon } from '../../icons/user';
 import { XCircle as XIcon } from '../../icons/x-circle';
+import { useState } from 'react';
+import axios from 'axios';
 
+export const MemberListToolbar = (props) => {
+  const [inputText, setInputText] = useState("");
+  const onChangeInput = e => {
+    setInputText(e.target.value);
+  };
+  const onReset = () => {
+    setInputText("");
+  };
+  console.log(inputText)// 검색값 찍히는 것 확인  
+  // 날짜 형식 만들기
+  var temp = new Date();
+  var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
+  const nDate = date;
+  // 승인 api
+  const memberAuth = ({memno}) => {
+    const url = `http://localhost:8080/restapi/memberre/Auth/${memno}`;
+    const formData = new FormData();
 
-export const MemberListToolbar = (props) => (
-  <Box {...props}>
+    formData.append("auth", 1);
+    formData.append("update", nDate);
+    const config = {
+      headers: {
+      "content-type": "multipart/form-data", 
+      },
+    };
+    return (axios.put(url, formData, config)
+      .then( response => {
+        console.log('response :', JSON.stringify(response, null, 2))
+      }).catch( error => {
+        console.log('failed', error)
+      }))
+  }
+  // 활성화 api
+  const memberActive = ({memno}) => {
+    const url = `http://localhost:8080/restapi/memberre/Active/${memno}`; 
+    const formData = new FormData();
+
+    formData.append("activeyn", 'N');
+    formData.append("update", nDate);
+    const config = {
+      headers: {
+      "content-type": "multipart/form-data", 
+      },
+    };
+    return (axios.put(url, formData, config)
+      .then( response => {
+        console.log('response :', JSON.stringify(response, null, 2))
+      }).catch( error => {
+        console.log('failed', error)
+      }))
+  }
+
+  return(
+    <Box {...props}>
     <Box
       sx={{
         alignItems: 'center',
@@ -47,12 +100,14 @@ export const MemberListToolbar = (props) => (
         <Button
           startIcon={(<XIcon fontSize="small" />)}
           sx={{ mr: 1 }}
+          onClick={memberActive}
         >
           삭제하기
         </Button>
         <Button
           color="primary"
           variant="contained"
+          onClick={memberAuth}
         >
           선택 승인
         </Button>
@@ -71,6 +126,7 @@ export const MemberListToolbar = (props) => (
         >
             <TextField
               fullWidth
+              onChange={onChangeInput}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -88,10 +144,11 @@ export const MemberListToolbar = (props) => (
             />
             <Button variant="contained" sx={{ ml: 1 }} >Search</Button>
           </Box>
-
+            
         </CardContent>
- 
+            
       </Card> 
     </Box>
   </Box>
-);
+  );
+};

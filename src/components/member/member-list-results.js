@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
@@ -23,18 +24,17 @@ export const MemberListResults = ({ members, ...rest }) => {
   const [selectedMemberNOs, setSelectedMemberNOs] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
+  const [memno, setMemno] = useState();
 
   const handleSelectAll = (event) => {
     let newSelectedMemberNOs;
 
     if (event.target.checked) {
-      newSelectedMemberNOs = members.map((member) => member.no);
-      console.log(members) //
+      newSelectedMemberNOs = members.map((member) => member.no);       
     } else {
       newSelectedMemberNOs = [];
     }
-
+    //console.log(newSelectedMemberNOs) // 이자리에서 체크박스 값 골라지는것 확인 가능
     setSelectedMemberNOs(newSelectedMemberNOs);
   };
 
@@ -54,19 +54,20 @@ export const MemberListResults = ({ members, ...rest }) => {
         selectedMemberNOs.slice(selectedIndex + 1)
       );
     }
-
+    //console.log(newSelectedMemberNOs) // 이자리에서 체크박스 값 골라지는것 확인 가능
+    setMemno(no);
     setSelectedMemberNOs(newSelectedMemberNOs);
   };
 
   const handleLimitChange = (event) => {
-    setLimit(event.target.value);
+    setLimit(parseInt(event.target.value,10));
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
-  };
-  console.log(members)
-
+  };  
+  //console.log(memno)
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -116,7 +117,7 @@ export const MemberListResults = ({ members, ...rest }) => {
             </TableHead>
             <TableBody>
               
-              {members.slice(0, limit).map((member) => (
+              {members.slice(page * limit, (page + 1) * limit).map((member) => (
                 <TableRow
                   hover
                   key={member.no}
@@ -204,6 +205,3 @@ export const MemberListResults = ({ members, ...rest }) => {
   );
 };
 
-MemberListResults.propTypes = {
-  members: PropTypes.array.isRequired
-};
