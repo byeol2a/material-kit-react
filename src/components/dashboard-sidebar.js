@@ -16,6 +16,7 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
+
 const items = [
   {
     href: '/',
@@ -23,9 +24,14 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/customers',
+    href: '/member',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    title: 'Members'
+  },
+  {
+    href: '/board',
+    icon: (<ChartBarIcon fontSize="small" />),
+    title: 'Board'
   },
   {
     href: '/products',
@@ -56,6 +62,11 @@ const items = [
     href: '/404',
     icon: (<XCircleIcon fontSize="small" />),
     title: 'Error'
+  },
+  {
+    href: '/deepview',
+    icon: (<ShoppingBagIcon fontSize="small" />),
+    title: 'Deepview'
   }
 ];
 

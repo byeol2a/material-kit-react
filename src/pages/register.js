@@ -1,7 +1,9 @@
+import React, { useEffect, useState } from "react";
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
+import axios from 'axios';
 import * as Yup from 'yup';
 import {
   Box,
@@ -14,8 +16,44 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { SettingsSystemDaydreamTwoTone } from '@mui/icons-material';
 
 const Register = () => {
+  const [data, setData] = useState(null);
+
+  var temp = new Date();
+  var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
+  const nDate = date;
+  
+  const addCustomer = () => {
+    const url = 'http://localhost:8080/restapi/member';
+    const formData = new FormData();
+    formData.append("no", 0);
+    formData.append("id", formik.values.firstName);
+    formData.append("pass", formik.values.password);
+    formData.append("name", formik.values.lastName);
+    formData.append("email", formik.values.email);
+    formData.append("activeyn", "Y");
+    formData.append("writedate", nDate);
+    formData.append("update", nDate);
+    formData.append("permission", 1);
+    formData.append("auth", 1);
+    formData.append("instanceyn", "N");
+    const config = {
+      headers: {
+      "content-type": "multipart/form-data", 
+      },
+    };
+    return (axios.post(url, formData, config)
+      .then( response => {
+        console.log('response :', JSON.stringify(response, null, 2))
+      }).catch( error => {
+        console.log('failed', error)
+      }))
+    }
+  
+
+  
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -56,7 +94,7 @@ const Register = () => {
         )
     }),
     onSubmit: () => {
-      router.push('/');
+      router.push('/login');
     }
   });
 
@@ -64,7 +102,7 @@ const Register = () => {
     <>
       <Head>
         <title>
-          Register | Material Kit
+          회원가입 페이지
         </title>
       </Head>
       <Box
@@ -85,7 +123,7 @@ const Register = () => {
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              메인 화면
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
@@ -94,21 +132,21 @@ const Register = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Create a new account
+                회원가입
               </Typography>
               <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Use your email to create a new account
+                이메일로 계정 만들기
               </Typography>
             </Box>
             <TextField
               error={Boolean(formik.touched.firstName && formik.errors.firstName)}
               fullWidth
               helperText={formik.touched.firstName && formik.errors.firstName}
-              label="First Name"
+              label="아이디"
               margin="normal"
               name="firstName"
               onBlur={formik.handleBlur}
@@ -117,10 +155,23 @@ const Register = () => {
               variant="outlined"
             />
             <TextField
+              error={Boolean(formik.touched.password && formik.errors.password)}
+              fullWidth
+              helperText={formik.touched.password && formik.errors.password}
+              label="비밀번호"
+              margin="normal"
+              name="password"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="password"
+              value={formik.values.password}
+              variant="outlined"
+            />
+            <TextField
               error={Boolean(formik.touched.lastName && formik.errors.lastName)}
               fullWidth
               helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Last Name"
+              label="이름"
               margin="normal"
               name="lastName"
               onBlur={formik.handleBlur}
@@ -132,26 +183,13 @@ const Register = () => {
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              label="이메일"
               margin="normal"
               name="email"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="email"
               value={formik.values.email}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              fullWidth
-              helperText={formik.touched.password && formik.errors.password}
-              label="Password"
-              margin="normal"
-              name="password"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="password"
-              value={formik.values.password}
               variant="outlined"
             />
             <Box
@@ -170,7 +208,7 @@ const Register = () => {
                 color="textSecondary"
                 variant="body2"
               >
-                I have read the
+                개인정보 이용 동의
                 {' '}
                 <NextLink
                   href="#"
@@ -181,7 +219,7 @@ const Register = () => {
                     underline="always"
                     variant="subtitle2"
                   >
-                    Terms and Conditions
+                    안내문서
                   </Link>
                 </NextLink>
               </Typography>
@@ -192,6 +230,7 @@ const Register = () => {
               </FormHelperText>
             )}
             <Box sx={{ py: 2 }}>
+              
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}
@@ -199,15 +238,16 @@ const Register = () => {
                 size="large"
                 type="submit"
                 variant="contained"
+                onClick={addCustomer}
               >
-                Sign Up Now
+                회원가입
               </Button>
             </Box>
             <Typography
               color="textSecondary"
               variant="body2"
             >
-              Have an account?
+              아이디가 이미 있으신가요?
               {' '}
               <NextLink
                 href="/login"
@@ -217,7 +257,7 @@ const Register = () => {
                   variant="subtitle2"
                   underline="hover"
                 >
-                  Sign In
+                  로그인
                 </Link>
               </NextLink>
             </Typography>
@@ -229,3 +269,4 @@ const Register = () => {
 };
 
 export default Register;
+

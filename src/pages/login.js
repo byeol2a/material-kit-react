@@ -3,35 +3,37 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
-const Login = () => {
+function Login() {
   const router = useRouter();
+  const logo = {
+    mainlogo: '/static/images/avatars/login_logo.png',
+  };
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      userid: '',
+      password: ''
     },
     validationSchema: Yup.object({
-      email: Yup
+      userid: Yup
         .string()
-        .email(
-          'Must be a valid email')
         .max(255)
         .required(
-          'Email is required'),
+          'ID를 입력하세요'),
       password: Yup
         .string()
         .max(255)
         .required(
-          'Password is required')
+          '비밀번호를 입력하세요')
     }),
     onSubmit: () => {
       router.push('/');
     }
+
   });
 
   return (
@@ -60,84 +62,47 @@ const Login = () => {
               Dashboard
             </Button>
           </NextLink>
+          <Grid align='center'>
+            <Avatar
+              src={logo.mainlogo}
+              sx={{
+                height: 64,
+                mb: 2,
+                width: 64
+              }}
+            />
+          </Grid>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
+              
               <Typography
+                align="center"
                 color="textPrimary"
                 variant="h4"
               >
-                Sign in
+                HISEOUL ML CONSOLE
               </Typography>
               <Typography
+                align="center"
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Sign in on the internal platform
+                로그인 화면 입니다
               </Typography>
             </Box>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  fullWidth
-                  color="error"
-                  startIcon={<GoogleIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
-            </Grid>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
-            >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                or login with email address
-              </Typography>
-            </Box>
+            
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
+              error={Boolean(formik.touched.userid && formik.errors.userid)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              helperText={formik.touched.userid && formik.errors.userid}
+              label="User ID"
               margin="normal"
-              name="email"
+              name="userid"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
+              type="userid"
+              value={formik.values.userid}
               variant="outlined"
             />
             <TextField
@@ -153,38 +118,83 @@ const Login = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-                disabled={formik.isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
+
+            <Typography>
+              <Grid
+                container
+                spacing={3}
               >
-                Sign In Now
-              </Button>
-            </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Don&apos;t have an account?
-              {' '}
-              <NextLink
-                href="/register"
-              >
-                <Link
-                  to="/register"
-                  variant="subtitle2"
-                  underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx = {{mt:1, mb:2}}
                 >
-                  Sign Up
-                </Link>
-              </NextLink>
+                  <Button
+                    color="info"
+                    fullWidth
+                    onClick={formik.handleSubmit}
+                    size="large"
+                    variant="contained"
+                  >
+                  로그인
+              </Button>
+              </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx = {{mt:1, mb:2}}
+                >
+                   <Button
+                     fullWidth
+                     color="error"
+                     onClick={formik.handleChange}
+                     size="large"
+                     variant="contained"
+                     href="/register"
+                    >
+                      회원 가입
+                    </Button>
+                </Grid>
+              </Grid>
+            </Typography>
+
+
+            <Typography>
+              <Grid container>
+                <Grid item xs>
+                  <NextLink
+                    href="/findid"
+                  >
+                    <Link
+                      variant="subtitle2"
+                      underline="hover"
+                      sx={{
+                        cursor: 'pointer'
+                      }}
+                    >
+                      아이디 찾기
+                    </Link>
+                  </NextLink>
+                </Grid>
+                <Grid item>
+                  <NextLink
+                    href="/findpass"
+                  >
+                    <Link
+                      variant="subtitle2"
+                      underline="hover"
+                      sx={{
+                        cursor: 'pointer'
+                      }}
+                    >
+                      비밀번호 찾기
+                    </Link>
+                  </NextLink>
+                </Grid>
+              </Grid>
             </Typography>
           </form>
         </Container>

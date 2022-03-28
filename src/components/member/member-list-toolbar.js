@@ -17,20 +17,23 @@ import axios from 'axios';
 
 export const MemberListToolbar = (props) => {
   const [inputText, setInputText] = useState("");
+  console.log(props)
   const onChangeInput = e => {
     setInputText(e.target.value);
   };
   const onReset = () => {
     setInputText("");
   };
-  console.log(inputText)// 검색값 찍히는 것 확인  
+  //console.log(inputText)// 검색값 찍히는 것 확인  
+  
   // 날짜 형식 만들기
   var temp = new Date();
   var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
+  //const memno = 6;  // 변수 됨.
   const nDate = date;
   // 승인 api
-  const memberAuth = ({memno}) => {
-    const url = `http://localhost:8080/restapi/memberre/Auth/${memno}`;
+  const memberAuth = () => {
+    const url = `http://localhost:8080/restapi/memberre/Auth/21`;
     const formData = new FormData();
 
     formData.append("auth", 1);
@@ -40,16 +43,18 @@ export const MemberListToolbar = (props) => {
       "content-type": "multipart/form-data", 
       },
     };
+    location.reload();
     return (axios.put(url, formData, config)
       .then( response => {
         console.log('response :', JSON.stringify(response, null, 2))
       }).catch( error => {
         console.log('failed', error)
-      }))
+      })
+      )
   }
   // 활성화 api
-  const memberActive = ({memno}) => {
-    const url = `http://localhost:8080/restapi/memberre/Active/${memno}`; 
+  const memberActive = () => {
+    const url = `http://localhost:8080/restapi/memberre/Active/21`; 
     const formData = new FormData();
 
     formData.append("activeyn", 'N');
@@ -59,6 +64,7 @@ export const MemberListToolbar = (props) => {
       "content-type": "multipart/form-data", 
       },
     };
+    location.reload();
     return (axios.put(url, formData, config)
       .then( response => {
         console.log('response :', JSON.stringify(response, null, 2))
@@ -66,89 +72,88 @@ export const MemberListToolbar = (props) => {
         console.log('failed', error)
       }))
   }
-
   return(
     <Box {...props}>
-    <Box
-      sx={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        m: -1
-      }}
-    >
-      <Typography
-        sx={{ m: 3 }}
-        variant="h4"
+      <Box
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          m: -1
+        }}
       >
-        회원정보 검색
-      </Typography>
-      <Box sx={{ m: 1 }}>
-        <Button
-          startIcon={(<AddIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
+        <Typography
+          sx={{ m: 3 }}
+          variant="h4"
         >
-          등록하기
-        </Button>
-        <Button
-          startIcon={(<UserIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          세부정보
-        </Button>
-        <Button
-          startIcon={(<XIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-          onClick={memberActive}
-        >
-          삭제하기
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={memberAuth}
-        >
-          선택 승인
-        </Button>
+          회원정보 검색
+        </Typography>
+        <Box sx={{ m: 1 }}>
+          <Button
+            startIcon={(<AddIcon fontSize="small" />)}
+            sx={{ mr: 1 }}
+          >
+            등록하기
+          </Button>
+          <Button
+            startIcon={(<UserIcon fontSize="small" />)}
+            sx={{ mr: 1 }}
+          >
+            세부정보
+          </Button>
+          <Button
+            startIcon={(<XIcon fontSize="small" />)}
+            sx={{ mr: 1 }}
+            onClick={memberActive}
+          >
+            삭제하기
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={memberAuth}
+          >
+            선택 승인
+          </Button>
+        </Box>
+      </Box>
+      <Box sx={{ ml: 1 }}>
+        <Card>
+          <CardContent>
+          <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            p: 1,
+            m: 1
+            }}
+          >
+              <TextField
+                fullWidth
+                onChange={onChangeInput}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SvgIcon
+                        color="action"
+                        fontSize="small"
+                      >
+                        <SearchIcon />
+                      </SvgIcon>
+                    </InputAdornment>
+                  )
+                }}
+                placeholder="Search customer"
+                variant="outlined"
+              />
+              <Button variant="contained" sx={{ ml: 1 }} >Search</Button>
+            </Box>
+              
+          </CardContent>
+              
+        </Card> 
       </Box>
     </Box>
-    <Box sx={{ ml: 1 }}>
-      <Card>
-        <CardContent>
-        <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          p: 1,
-          m: 1
-          }}
-        >
-            <TextField
-              fullWidth
-              onChange={onChangeInput}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SvgIcon
-                      color="action"
-                      fontSize="small"
-                    >
-                      <SearchIcon />
-                    </SvgIcon>
-                  </InputAdornment>
-                )
-              }}
-              placeholder="Search customer"
-              variant="outlined"
-            />
-            <Button variant="contained" sx={{ ml: 1 }} >Search</Button>
-          </Box>
-            
-        </CardContent>
-            
-      </Card> 
-    </Box>
-  </Box>
   );
 };

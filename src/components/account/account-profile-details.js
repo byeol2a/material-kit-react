@@ -1,46 +1,44 @@
-import { useState } from 'react';
 import {
   Box,
-  Button,
   Card,
   CardContent,
-  CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material';
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import CancleModal from './canclemodal';
+import WithdrawModal from './withdrawmodal';
+import ModifyModal from './modifymodal';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
 
 export const AccountProfileDetails = (props) => {
-  const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  });
-
+  
   const handleChange = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
   };
+  
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const apiCall = async () =>  {
+      const response = await axios.get('http://localhost:8080/restapi/member/1'); 
+          setData(response.data.payload);
+        };
+      apiCall();
+    }, [])
 
   return (
     <form
@@ -49,65 +47,81 @@ export const AccountProfileDetails = (props) => {
       {...props}
     >
       <Card>
-        <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
-        />
+        <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
+        >
+          <WithdrawModal/>
+        </Box> 
         <Divider />
         <CardContent>
           <Grid
             container
-            spacing={3}
+            spacing={2}
           >
             <Grid
               item
-              md={6}
+              md={12}
+              xs={12}
+            >
+              <Typography
+                gutterBottom
+                color="textSecondary"
+                variant='caption'
+              >
+              ID
+              </Typography>
+              <Div>{data.id}</Div>
+            </Grid>
+            <Grid
+              item
+              md={12}
               xs={12}
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
+                helperText="[경고] 비밀번호 값이 존재하면 비밀번호가 변경됩니다."
+                label="Password"
+                name="password"
                 onChange={handleChange}
                 required
-                value={values.firstName}
                 variant="outlined"
               />
             </Grid>
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
             >
               <TextField
                 fullWidth
-                label="Last name"
-                name="lastName"
+                label="Name"
+                name="name"
                 onChange={handleChange}
-                required
-                value={values.lastName}
+                type="text"
                 variant="outlined"
               />
             </Grid>
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
             >
-              <TextField
-                fullWidth
-                label="Email Address"
-                name="email"
-                onChange={handleChange}
-                required
-                value={values.email}
-                variant="outlined"
-              />
+              <Typography
+                gutterBottom
+                color="textSecondary"
+                variant='caption'
+              >
+              Email address
+              </Typography>
+              <Div>{data.email}</Div>
             </Grid>
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
             >
               <TextField
@@ -115,51 +129,9 @@ export const AccountProfileDetails = (props) => {
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
-                type="number"
-                value={values.phone}
+                type="text"
                 variant="outlined"
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
             </Grid>
           </Grid>
         </CardContent>
@@ -167,16 +139,18 @@ export const AccountProfileDetails = (props) => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
             p: 2
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Box>
+              <CancleModal/>
+            </Box>
+            <Box>
+              <ModifyModal/>
+            </Box>
+          </Stack>
         </Box>
       </Card>
     </form>
