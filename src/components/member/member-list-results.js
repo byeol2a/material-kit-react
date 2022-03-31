@@ -20,12 +20,11 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import axios from 'axios';
 
-export const MemberListResults = ({ members, ...rest }) => {
+export const MemberListResults = ({ members,setMemData, ...rest }) => {
   const [selectedMemberNOs, setSelectedMemberNOs] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [memno, setMemno] = useState();
-
   const handleSelectAll = (event) => {
     let newSelectedMemberNOs;
 
@@ -34,7 +33,6 @@ export const MemberListResults = ({ members, ...rest }) => {
     } else {
       newSelectedMemberNOs = [];
     }
-    //console.log(newSelectedMemberNOs) // 이자리에서 체크박스 값 골라지는것 확인 가능
     setSelectedMemberNOs(newSelectedMemberNOs);
   };
 
@@ -54,7 +52,6 @@ export const MemberListResults = ({ members, ...rest }) => {
         selectedMemberNOs.slice(selectedIndex + 1)
       );
     }
-    //console.log(newSelectedMemberNOs) // 이자리에서 체크박스 값 골라지는것 확인 가능
     setMemno(no);
     setSelectedMemberNOs(newSelectedMemberNOs);
   };
@@ -67,7 +64,8 @@ export const MemberListResults = ({ members, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };  
-  //console.log(memno)
+  setMemData(memno); // 지금은 개별 번호로 날리지만 selectedMemberNOs로 변경할 예정.
+  //console.log(selectedMemberNOs)
   return (
     <Card {...rest}>
       <PerfectScrollbar>

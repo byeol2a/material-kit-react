@@ -17,23 +17,21 @@ import axios from 'axios';
 
 export const MemberListToolbar = (props) => {
   const [inputText, setInputText] = useState("");
-  console.log(props)
   const onChangeInput = e => {
     setInputText(e.target.value);
   };
   const onReset = () => {
     setInputText("");
   };
-  //console.log(inputText)// 검색값 찍히는 것 확인  
+  console.log(props.memdata)// memdev부터 넘어온 값 확인
   
   // 날짜 형식 만들기
   var temp = new Date();
   var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
-  //const memno = 6;  // 변수 됨.
   const nDate = date;
   // 승인 api
   const memberAuth = () => {
-    const url = `http://localhost:8080/restapi/memberre/Auth/21`;
+    const url = `http://localhost:8080/restapi/memberre/Auth/`+props.memdata;
     const formData = new FormData();
 
     formData.append("auth", 1);
@@ -54,7 +52,7 @@ export const MemberListToolbar = (props) => {
   }
   // 활성화 api
   const memberActive = () => {
-    const url = `http://localhost:8080/restapi/memberre/Active/21`; 
+    const url = `http://localhost:8080/restapi/memberre/Active/`+props.memdata; 
     const formData = new FormData();
 
     formData.append("activeyn", 'N');

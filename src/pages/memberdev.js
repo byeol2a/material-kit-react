@@ -5,9 +5,9 @@ import { Box, Container } from '@mui/material';
 import { MemberListResults } from '../components/member/member-list-results';
 import { MemberListToolbar } from '../components/member/member-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-
-const Memberdev = (props) => {
+const Memberdev = () => {
   const [data, setData] = useState([]);
+  const [memdata, setMemData] = useState([]); // 하위에서 받아오기 위한 상태 설정 // 하위로는 셋을 넘기게 된다.
   useEffect(() => {
     const apiCall = async () =>  {
       const response = await axios.get('http://localhost:8080/restapi/member'); 
@@ -20,8 +20,8 @@ const Memberdev = (props) => {
   const ResultMap = data.filter((x)=> {
     return x.activeyn == 'Y'
   })
-  
-  return (
+  //console.log(memdata); 하위에서 셋으로부터 받아온 값 잘들어온것 확인.
+  return (    
     <div>
       <>
         <Head>
@@ -37,14 +37,14 @@ const Memberdev = (props) => {
           }}
         >
           <Container maxWidth={false}>
-            <MemberListToolbar />
+            <MemberListToolbar memdata = {memdata}/>
             <Box sx={{ mt: 3 }}>
-              <MemberListResults members={ResultMap} />
+              <MemberListResults members={ResultMap} setMemData={setMemData} />
             </Box>
           </Container>
         </Box>
       </>
-    </div>    
+    </div>       
   );
 };
 Memberdev.getLayout = (page) => (
