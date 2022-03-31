@@ -17,6 +17,7 @@ import axios from 'axios';
 
 export const MemberListToolbar = (props) => {
   const [inputText, setInputText] = useState("");
+  props.setSearch(inputText);
   const onChangeInput = e => {
     setInputText(e.target.value);
   };
@@ -145,7 +146,6 @@ export const MemberListToolbar = (props) => {
                 placeholder="Search customer"
                 variant="outlined"
               />
-              <Button variant="contained" sx={{ ml: 1 }} >Search</Button>
             </Box>
               
           </CardContent>
