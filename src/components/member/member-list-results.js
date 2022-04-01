@@ -64,7 +64,7 @@ export const MemberListResults = ({ members,setMemData, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };  
-  setMemData(memno); // 지금은 개별 번호로 날리지만 selectedMemberNOs로 변경할 예정.
+  setMemData(selectedMemberNOs); // checkbox리스트 보내기.
   //console.log(selectedMemberNOs)
   return (
     <Card {...rest}>

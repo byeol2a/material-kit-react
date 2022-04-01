@@ -30,18 +30,16 @@ export const MemberListToolbar = (props) => {
   var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
   const nDate = date;
   // 승인 api
-  function memberAuth() {
-    props.memdata.forEach(function(ele, index) {
-      console.log(ele, index);
-      const url = `http://localhost:8080/restapi/memberre/Auth/`+ele; 
-      const formData = new FormData();
+  const memberAuth = () => {
+    const url = `http://localhost:8080/restapi/memberre/Auth/`+props.memdata; 
+    const formData = new FormData();
 
-      formData.append("auth", 1);
-      formData.append("update", nDate);
-      const config = {
-        headers: {
-        "content-type": "multipart/form-data", 
-        },
+    formData.append("auth", 1);
+    formData.append("update", nDate);
+    const config = {
+      headers: {
+      "content-type": "multipart/form-data", 
+      },
     };
     location.reload();
     return (axios.put(url, formData, config)
@@ -50,23 +48,19 @@ export const MemberListToolbar = (props) => {
       }).catch( error => {
         console.log('failed', error)
       })
-    )
-   });
-  };
-  
+      )
+  }
   // 활성화 api
-  function memberActive() {
-    props.memdata.forEach(function(ele, index) {
-      console.log(ele, index);
-      const url = `http://localhost:8080/restapi/memberre/Active/`+ele; 
-      const formData = new FormData();
+  const memberActive = () => {
+    const url = `http://localhost:8080/restapi/memberre/Active/`+props.memdata; 
+    const formData = new FormData();
 
-      formData.append("activeyn", 'N');
-      formData.append("update", nDate);
-      const config = {
-        headers: {
-        "content-type": "multipart/form-data", 
-        },
+    formData.append("activeyn", 'N');
+    formData.append("update", nDate);
+    const config = {
+      headers: {
+      "content-type": "multipart/form-data", 
+      },
     };
     location.reload();
     return (axios.put(url, formData, config)
@@ -74,11 +68,8 @@ export const MemberListToolbar = (props) => {
         console.log('response :', JSON.stringify(response, null, 2))
       }).catch( error => {
         console.log('failed', error)
-      })
-    )
-   });
-  };
-
+      }))
+  }
   return(
     <Box {...props}>
       <Box
