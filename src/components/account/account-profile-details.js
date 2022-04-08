@@ -74,7 +74,39 @@ export const AccountProfileDetails = (props) => {
               >
               ID
               </Typography>
-              <Div>{data.id}</Div>
+              <Div gutterBottom>{data.id}</Div>
+            </Grid>
+            <Grid
+              item
+              md={12}
+              xs={12}
+            >
+              <Typography
+                gutterBottom
+                color="textSecondary"
+                variant='caption'
+              >
+              Email address
+              </Typography>
+              <Div 
+              gutterBottom
+              >{data.email}
+              </Div>
+            </Grid>
+            <Grid
+              item
+              md={12}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Name"
+                name="name"
+                onChange={handleChange}
+                required
+                variant="outlined"
+                value={data.name}
+              />
             </Grid>
             <Grid
               item
@@ -89,48 +121,7 @@ export const AccountProfileDetails = (props) => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Name"
-                name="name"
-                onChange={handleChange}
-                type="text"
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={12}
-            >
-              <Typography
-                gutterBottom
-                color="textSecondary"
-                variant='caption'
-              >
-              Email address
-              </Typography>
-              <Div>{data.email}</Div>
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Phone Number"
-                name="phone"
-                onChange={handleChange}
-                type="text"
-                variant="outlined"
+                value={data.pass}
               />
             </Grid>
           </Grid>

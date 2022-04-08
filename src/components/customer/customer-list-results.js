@@ -21,7 +21,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  console.log(selectedCustomerIds)
+
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
@@ -55,8 +55,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   const handleLimitChange = (event) => {
-    setLimit(parseInt(event.target.value,10));
-    setPage(0);
+    setLimit(event.target.value);
   };
 
   const handlePageChange = (event, newPage) => {
@@ -82,30 +81,24 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>
-                  no
+                  Name
                 </TableCell>
                 <TableCell>
-                  id
+                  Email
                 </TableCell>
                 <TableCell>
-                  name
+                  Location
                 </TableCell>
                 <TableCell>
-                  email
+                  Phone
                 </TableCell>
                 <TableCell>
-                  가입 날짜
-                </TableCell>
-                <TableCell>
-                  아이디 활성여부
-                </TableCell>
-                <TableCell>
-                  유저 권한
+                  Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(page * limit, (page + 1) * limit).map((customer) => (
+              {customers.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -119,25 +112,37 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     />
                   </TableCell>
                   <TableCell>
-                    {customer.no}
-                  </TableCell>
-                  <TableCell>
-                    {customer.id}
-                  </TableCell>
-                  <TableCell>
-                    {customer.name}
+                    <Box
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex'
+                      }}
+                    >
+                      <Avatar
+                        src={customer.avatarUrl}
+                        sx={{ mr: 2 }}
+                      >
+                        {getInitials(customer.name)}
+                      </Avatar>
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {customer.name}
+                      </Typography>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {customer.write_date}
+                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
                   </TableCell>
                   <TableCell>
-                    {customer.active_yn}
+                    {customer.phone}
                   </TableCell>
                   <TableCell>
-                    {customer.permission}
+                    {format(customer.createdAt, 'dd/MM/yyyy')}
                   </TableCell>
                 </TableRow>
               ))}

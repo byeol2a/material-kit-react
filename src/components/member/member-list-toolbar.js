@@ -128,6 +128,7 @@ export const MemberListToolbar = (props) => {
       },
     };
     setOpen1(false); 
+    location.reload();
     return (axios.post(url, formData, config)
       .then(response => {
         console.log('response :', JSON.stringify(response, null, 2))
@@ -367,7 +368,7 @@ export const MemberListToolbar = (props) => {
                 <CardContent>
                   <Typography gutterBottom variant="h7" component="div">
                     <label>멤버 고유 No : </label>
-                    <label>{memdetail.no}</label>
+                    <label>{memdetail.no}</label><br/>
                   </Typography>
                   <Grid
                     container
@@ -493,6 +494,16 @@ export const MemberListToolbar = (props) => {
                       />
                     </Grid>
                   </Grid>
+                  <Divider />
+                  <Typography gutterBottom variant="h7" component="div">
+                    <label> 가입일 : </label>
+                    <label>{memdetail.writedate}</label>
+                  </Typography>
+                  <Divider />
+                  <Typography gutterBottom variant="h7" component="div">
+                    <label> 최근 업데이트 날짜 : </label><br/>
+                    <label>{memdetail.update}</label>
+                  </Typography>
                 </CardContent>
                 <Divider />
                 <Button

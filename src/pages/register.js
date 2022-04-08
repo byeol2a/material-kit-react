@@ -22,9 +22,9 @@ const Register = () => {
   const [data, setData] = useState(null);
 
   var temp = new Date();
-  var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
+  var date = temp.getFullYear() + '-' + (temp.getMonth() + 1) + '-' + temp.getDate() + ' ' + temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
   const nDate = date;
-  
+
   const addCustomer = () => {
     const url = 'http://localhost:8080/restapi/member';
     const formData = new FormData();
@@ -41,19 +41,19 @@ const Register = () => {
     formData.append("instanceyn", "N");
     const config = {
       headers: {
-      "content-type": "multipart/form-data", 
+        "content-type": "multipart/form-data",
       },
     };
     return (axios.post(url, formData, config)
-      .then( response => {
+      .then(response => {
         console.log('response :', JSON.stringify(response, null, 2))
-      }).catch( error => {
+      }).catch(error => {
         console.log('failed', error)
       }))
-    }
-  
+  }
 
-  
+
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -230,7 +230,7 @@ const Register = () => {
               </FormHelperText>
             )}
             <Box sx={{ py: 2 }}>
-              
+
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}
