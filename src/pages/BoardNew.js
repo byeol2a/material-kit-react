@@ -10,8 +10,8 @@ import {
     Typography
   } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { dataSave } from '../store/modules/boardReducer';
-import { uriSave } from '../store/modules/uriReducer';
+import { dataSave } from '../store/boardReducer';
+import { uriSave } from '../store/uriReducer';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useHistory } from 'react-router-dom';

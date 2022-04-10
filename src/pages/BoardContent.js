@@ -9,7 +9,7 @@ import {
   } from '@mui/material';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { editContent, removeContent } from '../store/modules/boardReducer';
+import { editContent, removeContent } from '../store/boardReducer';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
  

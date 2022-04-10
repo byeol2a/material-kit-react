@@ -5,6 +5,7 @@ import {
   Divider,
   Grid,
   TextField,
+  FormHelperText,
   Typography
 } from '@mui/material';
 import * as React from 'react';
@@ -15,6 +16,9 @@ import WithdrawModal from './withdrawmodal';
 import ModifyModal from './modifymodal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import SendIcon from '@mui/icons-material/Send';
 
 const Div = styled('div')(({ theme }) => ({
   ...theme.typography.button,
@@ -23,14 +27,60 @@ const Div = styled('div')(({ theme }) => ({
 }));
 
 export const AccountProfileDetails = (props) => {
+  var temp = new Date();
+  var date = temp.getFullYear() + '-' + (temp.getMonth()+1) + '-' + temp.getDate() +' '+ temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
+  const nDate = date;
   
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
+  const addCustomer = () => {
+    const url = 'http://localhost:8080/restapi/member';
+    const formData = new FormData();
+    formData.append("no", 0);
+    formData.append("id", formik.values.firstName);
+    formData.append("pass", formik.values.password);
+    formData.append("name", formik.values.lastName);
+    formData.append("email", formik.values.email);
+    formData.append("activeyn", "Y");
+    formData.append("writedate", nDate);
+    formData.append("update", nDate);
+    formData.append("permission", 1);
+    formData.append("auth", 1);
+    formData.append("instanceyn", "N");
+    const config = {
+      headers: {
+      "content-type": "multipart/form-data", 
+      },
+    };
+    return (axios.post(url, formData, config)
+      .then( response => {
+        console.log('response :', JSON.stringify(response, null, 2))
+      }).catch( error => {
+        console.log('failed', error)
+      }))
+    }
   
+
+  
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      pass: '',
+    },
+    validationSchema: Yup.object({
+      name: Yup
+        .string()
+        .max(255)
+        .required(
+          'name is required'),
+      pass: Yup
+        .string()
+        .max(255)
+        .required(
+          'Password is required'),
+    }),
+    onSubmit: () => {
+      router.push('/login');
+    }
+  });
   const [data, setData] = useState([]);
   useEffect(() => {
     const apiCall = async () =>  {
@@ -39,7 +89,21 @@ export const AccountProfileDetails = (props) => {
         };
       apiCall();
     }, [])
+    console.log(data)
+    const [values, setValues] = useState({
+      name: data.name,
+      pass: data.pass
+    });
+    console.log(values)
+    const AccountValue = (event) => {
+      setValues({
+        ...values,
+        [event.target.name]: event.target.value
+      });  
+    };
 
+
+  
   return (
     <form
       autoComplete="off"
@@ -102,10 +166,10 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 label="Name"
                 name="name"
-                onChange={handleChange}
+                onChange={AccountValue}
                 required
                 variant="outlined"
-                value={data.name}
+                value={formik.values.name}
               />
             </Grid>
             <Grid
@@ -115,13 +179,18 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="[경고] 비밀번호 값이 존재하면 비밀번호가 변경됩니다."
+                //helperText="[경고] 비밀번호 값이 존재하면 비밀번호가 변경됩니다."
                 label="Password"
-                name="password"
-                onChange={handleChange}
+                name="pass"
+                error={Boolean(formik.touched.pass && formik.errors.pass)}
+                helperText={formik.touched.pass && formik.errors.pass}
+                margin="normal"
+                onChange={formik.handleChange}
                 required
                 variant="outlined"
-                value={data.pass}
+                value={formik.values.pass}
+                type="password"
+                onBlur={formik.handleBlur}
               />
             </Grid>
           </Grid>
@@ -139,7 +208,7 @@ export const AccountProfileDetails = (props) => {
               <CancleModal/>
             </Box>
             <Box>
-              <ModifyModal/>
+              <ModifyModal />
             </Box>
           </Stack>
         </Box>

@@ -11,8 +11,7 @@ import {
 
 import NextLink from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { selectRow } from '../store/modules/boardReducer';
+import { selectRow } from '../store/boardReducer';
  
 function BoardList() {
     const {inputData} = useSelector(state => state.boardReducer)

@@ -348,7 +348,175 @@ export const MemberListToolbar = (props) => {
               </Card>
             </Box>
           </Modal>
-
+          <Button
+            startIcon={(<UserIcon fontSize="small" />)}
+            sx={{ mr: 1 }}
+            onClick={handleOpen2}
+          >
+            세부정보
+          </Button>
+          <Modal
+            open={open2}
+            onClose={handleClose2}
+          >
+            <Box sx={{ ...style }}>
+              <Card>
+                <CardHeader
+                  title="회원 세부 정보"
+                  subheader="member_information"
+                />
+                <Divider />
+                <CardContent>
+                  <Typography gutterBottom variant="h7" component="div">
+                    <label>멤버 고유 No : </label>
+                    <label>{memdetail.no}</label><br/>
+                  </Typography>
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="ID"
+                        name="id"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.id}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="NAME"
+                        name="name"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.name}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="PASSWORD"
+                        name="pass"
+                        onChange={handleChange}
+                        value={memdetail.pass}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Email Address"
+                        name="email"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.email}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="InstanceYN"
+                        name="instanceyn"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.instanceyn}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="ActiveYN"
+                        name="activeyn"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.activeyn}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Permission"
+                        name="permission"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.permission}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Auth"
+                        name="auth"
+                        onChange={handleChange}
+                        required
+                        value={memdetail.auth}
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Divider />
+                  <Typography gutterBottom variant="h7" component="div">
+                    <label> 가입일 : </label>
+                    <label>{memdetail.writedate}</label>
+                  </Typography>
+                  <Divider />
+                  <Typography gutterBottom variant="h7" component="div">
+                    <label> 최근 업데이트 날짜 : </label><br/>
+                    <label>{memdetail.update}</label>
+                  </Typography>
+                </CardContent>
+                <Divider />
+                <Button
+                  variant='outlined'
+                  onClick={handleClose2}
+                  fullWidth
+                >
+                  종료하기
+                </Button>
+              </Card>
+            </Box>
+          </Modal>
           <Button
             startIcon={(<XIcon fontSize="small" />)}
             sx={{ mr: 1 }}
