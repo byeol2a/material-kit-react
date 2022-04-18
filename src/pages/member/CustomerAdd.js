@@ -71,7 +71,7 @@ const CustomerAdd = () => {
         email: '',
         id: '',
         name: '',
-        password: '0000',
+        password: '00000000',
         permission: '9',
         instanceyn: '',
         activeyn:'',
@@ -98,6 +98,8 @@ const CustomerAdd = () => {
             'Name is required'),
         password: Yup
           .string()
+          .matches(/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/, 
+          "비밀번호는 영문, 숫자, 특수문자를 조합하여 8자리 이상 20글자 이하의 길이로 구성하여야합니다.")
           .max(255)
           .required(
             'Password is required'),
@@ -159,7 +161,7 @@ const CustomerAdd = () => {
                       helperText={formik.touched.name && formik.errors.name}
                       label="이름"
                       margin="normal"
-                      name="lastName"
+                      name="name"
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                       value={formik.values.lastName}

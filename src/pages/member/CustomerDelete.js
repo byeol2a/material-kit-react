@@ -25,7 +25,6 @@ const CustomerDelete = (no) => {
     };
     const memno = no.no;
     const deleteCustomer =(memno,e)=> {
-        console.log(memno, e);
         const url = `http://localhost:8080/restapi/memberre/Active/`+memno;
         const formData = new FormData();
         formData.append("activeyn", 'N');

@@ -32,10 +32,11 @@ const CustomerDetail = (no) => {
           })
         ) 
     }
-    console.log(memdetail);
+    
     var temp = new Date();
     var date = temp.getFullYear() + '-' + (temp.getMonth() + 1) + '-' + temp.getDate() + ' ' + temp.getHours() + ':' + temp.getMinutes() + ':' + temp.getSeconds();
     const nDate = date;
+
     const handleOpen = () => {
         getdetail(memno);
         setOpen(true);

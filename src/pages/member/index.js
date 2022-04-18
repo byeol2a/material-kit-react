@@ -68,13 +68,6 @@ const Management = () => {
     }
   })
 
-
-  const handleValueChange = (e) => {
-    let nextState = {};
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
-  }
-
   const handleLimitChange = (event) => {
     setLimit(parseInt(event.target.value,10));
     setPage(0);
@@ -173,7 +166,7 @@ const Management = () => {
                       {member.permission}
                     </TableCell>
                     <TableCell align="right">
-                      {member.id}
+                      {member.id} 
                     </TableCell>
                     <TableCell align="left">
                       <CustomerDetail no = {member.no}/> 
